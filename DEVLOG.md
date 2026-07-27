@@ -54,3 +54,16 @@
 - Create the Dashboard page.
 - Learn Bootstrap Grid.
 - Build dashboard cards.
+
+## Session 5 - Multi-page Navigation
+
+### Completed
+- Created Dashboard page.
+- Created Academics page.
+- Created Cyber Hub page.
+- Added Flask routes for each page.
+- Updated the navigation bar with working links.
+
+### Learned
+- How Flask routes map URLs to templates.
+- How multiple pages share the same base layout.
