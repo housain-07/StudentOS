@@ -1,43 +1,56 @@
 # StudentOS Development Log
 
-## Session 1 - Project Initialization (2026-07-27)
+## Session 1 - Project Setup (2026-07-27)
 
 ### Completed
 - Created the StudentOS project structure.
-- Initialized a Git repository.
-- Renamed the default branch to `main`.
-- Created and activated a Python virtual environment.
+- Initialized Git.
+- Created and activated a virtual environment.
 - Installed Flask.
-- Created `requirements.txt`.
-- Added `.gitignore`.
+- Added .gitignore.
+- Created requirements.txt.
 
-### Learned
-- What Git is.
-- What a virtual environment is.
-- How to install Python packages.
-- How `requirements.txt` works.
+### Git
+- First commit: Initial Flask project setup
 
 ---
 
-## Session 2 - First Flask Application (2026-07-27)
+## Session 2 - First Flask App
 
 ### Completed
-- Created the Flask application using the Application Factory pattern.
-- Created `run.py`.
+- Created the Flask application factory.
 - Added the first route (`/`).
 - Successfully ran StudentOS in the browser.
-- Made the first Git commit.
 
-### Learned
-- How Flask routes work.
-- What `create_app()` does.
-- How to use `git add` and `git commit`.
-- How to check commit history with `git log --oneline`.
+### Git
+- Connected the project to GitHub.
+- Configured SSH authentication.
+- Pushed the first commit.
+
+---
+
+## Session 3 - Templates & UI Foundation
+
+### Completed
+- Added Jinja2 templates.
+- Created `base.html`.
+- Created `index.html`.
+- Integrated Bootstrap 5.
+- Added custom CSS.
+- Created reusable `navbar.html`.
+- Created reusable `footer.html`.
+- Built the first landing page.
+
+### Challenges
+- Fixed `TemplateAssertionError`.
+- Fixed `TemplateNotFound` for `footer.html`.
+
+### Git
+- Committed and pushed homepage layout improvements.
 
 ---
 
 ## Next Session
-- Connect StudentOS to GitHub.
-- Learn Flask templates (Jinja2).
-- Create `base.html`.
-- Add Bootstrap.
+- Create the Dashboard page.
+- Learn Bootstrap Grid.
+- Build dashboard cards.
