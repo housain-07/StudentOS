@@ -207,7 +207,40 @@ Enhance the StudentOS dashboard with a more professional appearance by improving
 - Build reusable dashboard cards with Jinja2 `{% include %}`.
 
 ---
+---
 
+# Session 7 - Reusable Dashboard Components
+**Date:** 2026-07-28
+
+## Objective
+Refactor the dashboard by replacing repeated HTML with reusable Jinja2 macros.
+
+## Completed
+- Created a reusable dashboard card macro.
+- Imported the macro into `dashboard.html`.
+- Replaced duplicated dashboard card HTML with macro calls.
+- Kept the dashboard appearance unchanged after refactoring.
+
+## Learned
+- The DRY (Don't Repeat Yourself) principle.
+- The difference between:
+  - Template inheritance (`extends`)
+  - Template inclusion (`include`)
+  - Jinja2 macros (`macro`)
+- How macros work similarly to Python functions.
+- What refactoring means and why it improves maintainability.
+- The idea of giving each template a single responsibility.
+
+## Challenges
+- Learned that Jinja2 macros are a better fit than `include` for reusable components that require parameters.
+
+## Git
+- Refactored dashboard cards using reusable Jinja2 macros.
+
+## Next Session
+- Make dashboard data dynamic.
+- Pass data from Flask routes to templates.
+- Replace hardcoded values with variables.
 # Future Roadmap
 
 ## Phase 1 — Foundation ✅
