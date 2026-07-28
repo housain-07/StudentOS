@@ -15,9 +15,15 @@ Dashboard | StudentOS
             Welcome Back 👋
         </h1>
 
-        <p class="text-muted fs-5">
-            Manage your studies, track your progress, and stay productive.
+        {% if study_hours == 0 %}
+        <p class="lead">
+            Start your first Pomodoro today! 🚀
         </p>
+        {% else %}
+        <p class="lead">
+            Great job! You've studied {{ study_hours }} hour(s) today. 🎉
+        </p>
+        {% endif %}
 
     </div>
 
@@ -27,7 +33,7 @@ Dashboard | StudentOS
         "bi-book",
         "text-primary",
         "Subjects",
-        5,
+        subjects,
         "Active this semester"
         ) }}
 
@@ -35,7 +41,7 @@ Dashboard | StudentOS
         "bi-clock-history",
         "text-success",
         "Study Hours",
-        0,
+        study_hours,
         "Today's progress"
         ) }}
 
@@ -43,7 +49,7 @@ Dashboard | StudentOS
         "bi-list-check",
         "text-warning",
         "Tasks",
-        0,
+        tasks,
         "Pending tasks"
         ) }}
 
@@ -51,11 +57,24 @@ Dashboard | StudentOS
         "bi-mortarboard",
         "text-danger",
         "CGPA",
-        "0.00",
+        cgpa,
         "Current CGPA"
         ) }}
 
     </div>
+    <hr class="my-5">
+
+    <h3>Today's Study Tasks</h3>
+
+    <ul class="list-group mt-3">
+
+        {% for task in study_tasks %}
+        <li class="list-group-item">
+            {{ task }}
+        </li>
+        {% endfor %}
+
+    </ul>
 
 </div>
 

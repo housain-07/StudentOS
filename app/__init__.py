@@ -12,7 +12,27 @@ def create_app():
 
     @app.route("/dashboard")
     def dashboard():
-        return render_template("dashboard.html")
+
+        subjects = 8
+        study_hours = 0
+        tasks = 12
+        cgpa = 3.87
+
+        study_tasks = [
+        "Complete Algorithm Assignment",
+        "Practice C++",
+        "Finish TryHackMe Room",
+        "Revise Vector Analysis"
+        ]
+
+        return render_template(
+        "dashboard.html",
+        subjects=subjects,
+        study_hours=study_hours,
+        tasks=tasks,
+        cgpa=cgpa,
+        study_tasks=study_tasks
+    )
 
 
     @app.route("/academics")
