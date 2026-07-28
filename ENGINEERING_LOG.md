@@ -490,3 +490,197 @@ Transform the dashboard from a static interface into a dynamic page by passing d
 - Docker Support
 - Cloud Deployment
 - Custom Domain
+
+# Session 9 - Database Foundation (SQLite & SQLAlchemy)
+
+**Date:** 2026-07-28
+
+## Goal
+
+Transform StudentOS from a static Flask application into a database-backed application by introducing SQLite and SQLAlchemy. Improve the project architecture to support future growth while maintaining clean separation of responsibilities.
+
+---
+
+## Completed
+
+### Project Architecture
+
+- Refactored application routes into a dedicated `routes` package.
+- Introduced Flask Blueprints.
+- Simplified `create_app()` by separating routing from application initialization.
+- Updated all template navigation to use Blueprint endpoints.
+
+### Configuration
+
+- Created `config.py` for centralized application configuration.
+- Added application configuration using the `Config` class.
+- Configured SQLite as the project's database.
+- Disabled SQLAlchemy modification tracking.
+
+### Database
+
+- Installed Flask-SQLAlchemy.
+- Configured SQLAlchemy using the Application Factory pattern.
+- Created a shared SQLAlchemy instance.
+- Initialized SQLAlchemy with the Flask application.
+- Created the project's first database model (`Task`).
+- Registered the models package.
+- Generated the first SQLite database (`studentos.db`).
+- Created the initial database table using `db.create_all()`.
+
+### Project Structure
+
+Current project structure:
+
+```text
+StudentOS/
+│
+├── app/
+│   ├── __init__.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   └── task.py
+│   ├── routes/
+│   │   ├── __init__.py
+│   │   └── main.py
+│   ├── static/
+│   └── templates/
+│
+├── config.py
+├── ENGINEERING_LOG.md
+├── README.md
+├── requirements.txt
+├── run.py
+└── studentos.db
+```
+
+---
+
+## Engineering Decisions
+
+### Blueprint Architecture
+
+Adopted Flask Blueprints to separate application routing from application initialization. This keeps `create_app()` focused on application setup while allowing the project to scale by organizing routes into independent modules.
+
+### Centralized Configuration
+
+Moved application settings into `config.py` instead of scattering configuration values throughout the project. This makes future development environments (development, testing, production) easier to manage.
+
+### Database Selection
+
+Selected SQLite as the initial database because it is lightweight, serverless, and well suited for personal projects and learning. The architecture allows migration to PostgreSQL or another relational database in the future with minimal code changes.
+
+### ORM Selection
+
+Used SQLAlchemy instead of raw SQL to interact with the database using Python classes. This improves readability, maintainability, and database portability.
+
+### First Model Selection
+
+Started with the `Task` model because it is independent and does not require relationships with other tables. This allows database fundamentals to be learned before introducing more advanced concepts such as foreign keys and relationships.
+
+### Application Factory Compatibility
+
+Initialized SQLAlchemy using `db.init_app(app)` instead of `SQLAlchemy(app)` to maintain compatibility with the Application Factory pattern adopted in earlier sessions.
+
+---
+
+## Issues & Fixes
+
+### Blueprint Endpoint Error
+
+**Issue**
+
+After introducing Flask Blueprints, template navigation stopped working.
+
+**Cause**
+
+Blueprints automatically prefix endpoint names.
+
+Example:
+
+```python
+url_for("home")
+```
+
+became
+
+```python
+url_for("main.home")
+```
+
+**Resolution**
+
+Updated all `url_for()` calls to use Blueprint-prefixed endpoint names.
+
+---
+
+### IndentationError
+
+**Issue**
+
+Python raised an `IndentationError` after introducing:
+
+```python
+with app.app_context():
+```
+
+**Cause**
+
+The body of the `with` block was not properly indented.
+
+**Resolution**
+
+Indented `db.create_all()` correctly inside the application context.
+
+---
+
+### Circular Import
+
+**Issue**
+
+Python raised:
+
+```text
+ImportError: cannot import name 'db'
+```
+
+**Cause**
+
+The models package was imported before the SQLAlchemy instance had been initialized, resulting in a circular import.
+
+**Resolution**
+
+Delayed importing the models package until after SQLAlchemy had been initialized inside `create_app()`.
+
+---
+
+## Git
+
+### Added
+
+- Flask Blueprints
+- Centralized configuration
+- SQLAlchemy integration
+- SQLite database
+- Task model
+- Models package
+- Database initialization
+
+### Refactored
+
+- Moved routes into the `routes` package.
+- Simplified `create_app()`.
+- Updated template navigation to use Blueprint endpoints.
+
+---
+
+## Next
+
+- Understand CRUD operations.
+- Insert the first Task into the database.
+- Retrieve Task records using SQLAlchemy queries.
+- Update existing records.
+- Delete records.
+- Replace temporary dashboard task data with database-backed data.
+- Introduce Flask-Migrate to replace `db.create_all()` with proper database migrations in a future session.
+
