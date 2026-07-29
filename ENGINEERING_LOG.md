@@ -684,3 +684,121 @@ Delayed importing the models package until after SQLAlchemy had been initialized
 - Replace temporary dashboard task data with database-backed data.
 - Introduce Flask-Migrate to replace `db.create_all()` with proper database migrations in a future session.
 
+# Session 10 - CRUD (Create & Read)
+
+**Date:** 2026-07-29
+
+## Goal
+
+Implement the first CRUD operations by allowing users to create study tasks through a web form and display database-backed tasks on the dashboard.
+
+---
+
+## Completed
+
+### Database
+
+- Queried all tasks using `Task.query.all()`.
+- Counted tasks using `Task.query.count()`.
+- Replaced hardcoded dashboard task data with SQLite records.
+
+### Forms
+
+- Created `add_task.html`.
+- Built the first HTML form.
+- Used the POST method for data submission.
+- Retrieved form data using `request.form`.
+
+### Routes
+
+- Added `/add-task` supporting both GET and POST requests.
+- Redirected users to the dashboard after successfully creating a task.
+
+### Dashboard
+
+- Displayed database-backed tasks.
+- Added an "Add Task" button.
+- Displayed task titles using Jinja object attributes.
+
+---
+
+## Engineering Decisions
+
+- Used POST instead of GET for creating records.
+- Redirected after successful submission to prevent accidental duplicate form submissions.
+- Kept the temporary `/create-task` route only for learning purposes and planned its removal after completing form-based task creation.
+
+---
+
+## Issues & Fixes
+
+### Task Object Display
+
+**Issue**
+
+Dashboard displayed:
+
+```
+<Task Complete Algorithms Assignment>
+```
+
+instead of only the task title.
+
+**Cause**
+
+The template rendered the entire Task object.
+
+**Resolution**
+
+Updated the template to use:
+
+```jinja
+{{ task.title }}
+```
+
+instead of:
+
+```jinja
+{{ task }}
+```
+
+### Task Counter
+
+Improved task counting by replacing:
+
+```python
+len(study_tasks)
+```
+
+with:
+
+```python
+Task.query.count()
+```
+
+---
+
+## Git
+
+### Added
+
+- Add Task page
+- HTML form
+- POST request handling
+- Dashboard integration
+- Database-backed task list
+
+### Improved
+
+- Efficient task counting
+- Dashboard navigation
+
+---
+
+## Next
+
+- Understand database primary keys.
+- Update existing tasks.
+- Delete tasks.
+- Add task completion status.
+- Introduce Flask-Migrate for production-style database management.

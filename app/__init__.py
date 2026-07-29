@@ -2,9 +2,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 from config import Config
-from .routes.main import main
 
 db = SQLAlchemy()
+
+from .routes.main import main
 
 
 def create_app():
