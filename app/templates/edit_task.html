@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Task | StudentOS
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">Edit Study Task</h2>
+
+    <form method="POST">
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Task Title
+            </label>
+
+            <input type="text" class="form-control" name="title" value="{{ task.title }}" required>
+
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            Save Changes
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -62,6 +62,34 @@ def dashboard():
         study_tasks=study_tasks
     )
 
+@main.route("/task/<int:id>/edit", methods=["GET", "POST"])
+def edit_task(id):
+
+    task = Task.query.get_or_404(id)
+
+    if request.method == "POST":
+
+        task.title = request.form["title"]
+
+        db.session.commit()
+
+        return redirect(url_for("main.dashboard"))
+
+    return render_template(
+        "edit_task.html",
+        task=task
+    )
+
+@main.route("/task/<int:id>/delete")
+def delete_task(id):
+
+    task = Task.query.get_or_404(id)
+
+    db.session.delete(task)
+    db.session.commit()
+
+    return redirect(url_for("main.dashboard"))
+
 
 @main.route("/academics")
 def academics():

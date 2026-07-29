@@ -802,3 +802,67 @@ Task.query.count()
 - Delete tasks.
 - Add task completion status.
 - Introduce Flask-Migrate for production-style database management.
+
+# Session 11
+
+## Goal
+Implement the remaining CRUD operations (Update and Delete) for study tasks and connect them to the dashboard.
+
+---
+
+## Completed
+
+- Added Edit and Delete buttons to each task.
+- Implemented Delete functionality using a dynamic Flask route.
+- Connected Delete button with `url_for()`.
+- Learned how dynamic routes work using `<int:id>`.
+- Used `Task.query.get_or_404()` to safely retrieve tasks.
+- Deleted tasks using:
+  - `db.session.delete()`
+  - `db.session.commit()`
+- Implemented Edit functionality using GET and POST methods.
+- Created `edit_task.html`.
+- Pre-filled the edit form using:
+  `value="{{ task.title }}"`
+- Updated tasks without calling `db.session.add()`.
+- Successfully completed all CRUD operations:
+  - Create
+  - Read
+  - Update
+  - Delete
+
+---
+
+## Engineering Decisions
+
+- Used dynamic routes for task-specific actions.
+- Used `get_or_404()` instead of `get()` for safer database queries.
+- Allowed SQLAlchemy to automatically detect modified objects instead of re-adding them to the session.
+- Kept IDs visible temporarily for learning database concepts.
+
+---
+
+## Issues & Fixes
+
+### Observation
+After deleting a task, the ID numbers did not decrease.
+
+### Explanation
+SQLite does not renumber primary keys after deletion. IDs are permanent identifiers, ensuring data integrity and maintaining relationships between tables.
+
+---
+
+## Git
+
+Session 11 committed and pushed successfully.
+
+---
+
+## Next
+
+Session 12:
+- Remove temporary learning routes.
+- Remove visible database IDs.
+- Improve task UI.
+- Add delete confirmation.
+- Prepare StudentOS for Version 0.1.

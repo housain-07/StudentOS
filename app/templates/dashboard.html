@@ -76,8 +76,24 @@ Dashboard | StudentOS
     <ul class="list-group mt-3">
 
         {% for task in study_tasks %}
-        <li class="list-group-item">
-            {{ task.title }}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+
+            <span>
+                {{ task.id }}. {{ task.title }}
+            </span>
+
+            <div>
+
+                <a href="{{ url_for('main.edit_task', id=task.id) }}" class="btn btn-sm btn-warning">
+                    Edit
+                </a>
+
+                <a href="{{ url_for('main.delete_task', id=task.id) }}" class="btn btn-sm btn-danger">
+                    Delete
+                </a>
+
+            </div>
+
         </li>
         {% endfor %}
 
