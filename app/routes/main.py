@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from flask_login import login_required
 
-from app.models.task import Task
 from app import db
+from app.models.task import Task
 
 main = Blueprint("main", __name__)
 
@@ -10,7 +11,9 @@ main = Blueprint("main", __name__)
 def home():
     return render_template("index.html")
 
+
 @main.route("/add-task", methods=["GET", "POST"])
+@login_required
 def add_task():
 
     if request.method == "POST":
@@ -29,7 +32,9 @@ def add_task():
 
     return render_template("add_task.html")
 
+
 @main.route("/task/<int:id>/toggle")
+@login_required
 def toggle_task(id):
 
     task = Task.query.get_or_404(id)
@@ -40,13 +45,14 @@ def toggle_task(id):
 
     return redirect(url_for("main.dashboard"))
 
+
 @main.route("/dashboard")
+@login_required
 def dashboard():
 
     subjects = 8
     study_hours = 0
     cgpa = 3.87
-
 
     tasks = Task.query.count()
     study_tasks = Task.query.all()
@@ -60,7 +66,9 @@ def dashboard():
         study_tasks=study_tasks
     )
 
+
 @main.route("/task/<int:id>/edit", methods=["GET", "POST"])
+@login_required
 def edit_task(id):
 
     task = Task.query.get_or_404(id)
@@ -78,7 +86,9 @@ def edit_task(id):
         task=task
     )
 
+
 @main.route("/task/<int:id>/delete")
+@login_required
 def delete_task(id):
 
     task = Task.query.get_or_404(id)
@@ -90,10 +100,12 @@ def delete_task(id):
 
 
 @main.route("/academics")
+@login_required
 def academics():
     return render_template("academics.html")
 
 
 @main.route("/cyberhub")
+@login_required
 def cyberhub():
     return render_template("cyberhub.html")

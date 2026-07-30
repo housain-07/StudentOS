@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+Login | StudentOS
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5" style="max-width: 500px;">
+
+    <h2 class="mb-4 text-center">
+        Login to StudentOS
+    </h2>
+
+    <form method="POST">
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Email
+            </label>
+
+            <input type="email" class="form-control" name="email" required>
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Password
+            </label>
+
+            <input type="password" class="form-control" name="password" required>
+
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">
+            Login
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

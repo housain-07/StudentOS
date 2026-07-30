@@ -924,3 +924,36 @@ Session 13:
 - Logout
 - Password hashing
 - User-specific tasks
+
+# Session 13 - User Authentication
+
+## Goal
+Implement a complete user authentication system using Flask-Login.
+
+## Completed
+- Installed and configured Flask-Login.
+- Created the User model.
+- Implemented password hashing and verification.
+- Built Register, Login, and Logout functionality.
+- Configured LoginManager and user_loader.
+- Protected application routes using @login_required.
+- Added a dynamic authentication-aware navbar.
+
+## Engineering Decisions
+- Used Flask-Login for session management.
+- Stored passwords securely using Werkzeug hashing.
+- Kept the home page public while protecting application features.
+- Separated authentication into its own Blueprint.
+
+## Issues & Fixes
+- Fixed a circular import by using a lazy import inside user_loader.
+- Protected all task-related routes after discovering they were publicly accessible.
+
+## Git
+Commit:
+Session 13: Implement user authentication with Flask-Login
+
+## Next
+- Build a professional Bootstrap user dropdown.
+- Create one-to-many User ↔ Task relationship.
+- Make tasks user-specific.
