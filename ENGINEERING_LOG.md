@@ -866,3 +866,61 @@ Session 12:
 - Improve task UI.
 - Add delete confirmation.
 - Prepare StudentOS for Version 0.1.
+
+# Session 12
+
+## Goal
+Clean up the task management system, improve the dashboard UI, and prepare StudentOS for Version 0.1.
+
+---
+
+## Completed
+
+- Removed the temporary `/create-task` route.
+- Removed visible database IDs from the dashboard.
+- Added a task counter heading.
+- Added an empty-state message when no tasks exist.
+- Added a delete confirmation dialog using JavaScript `confirm()`.
+- Implemented task completion and undo functionality.
+- Added dynamic Complete/Undo button.
+- Displayed completed tasks using strike-through styling.
+- Improved the overall dashboard layout and user experience.
+
+---
+
+## Engineering Decisions
+
+- Removed temporary learning code after it served its purpose.
+- Kept primary keys internal instead of displaying them.
+- Reused the existing `completed` Boolean field instead of introducing another status field.
+- Used a toggle route with:
+  `task.completed = not task.completed`
+- Improved UX with confirmation dialogs and informative empty states.
+
+---
+
+## Issues & Fixes
+
+### Improvement
+The dashboard originally contained duplicated task display logic.
+
+### Fix
+Refactored the template so that the task list and empty-state message are handled in a single `{% if study_tasks %}` block.
+
+---
+
+## Git
+
+Session 12 committed and pushed successfully.
+
+---
+
+## Next
+
+Session 13:
+- User Authentication
+- Registration
+- Login
+- Logout
+- Password hashing
+- User-specific tasks

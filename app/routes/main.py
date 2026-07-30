@@ -10,19 +10,6 @@ main = Blueprint("main", __name__)
 def home():
     return render_template("index.html")
 
-@main.route("/create-task")
-def create_task():
-
-    task = Task(
-        title="Complete Algorithms Assignment",
-        completed=False
-    )
-
-    db.session.add(task)
-    db.session.commit()
-
-    return "Task Created Successfully!"
-
 @main.route("/add-task", methods=["GET", "POST"])
 def add_task():
 
@@ -41,6 +28,17 @@ def add_task():
         return redirect(url_for("main.dashboard"))
 
     return render_template("add_task.html")
+
+@main.route("/task/<int:id>/toggle")
+def toggle_task(id):
+
+    task = Task.query.get_or_404(id)
+
+    task.completed = not task.completed
+
+    db.session.commit()
+
+    return redirect(url_for("main.dashboard"))
 
 @main.route("/dashboard")
 def dashboard():
