@@ -957,3 +957,37 @@ Session 13: Implement user authentication with Flask-Login
 - Build a professional Bootstrap user dropdown.
 - Create one-to-many User ↔ Task relationship.
 - Make tasks user-specific.
+
+# Session 14
+
+## Goal
+Implement secure one-to-many User–Task relationships and enforce task ownership.
+
+## Completed
+- Added User → Task one-to-many relationship.
+- Added Task.user_id foreign key.
+- Configured SQLAlchemy relationship and backref.
+- Recreated SQLite database with updated schema.
+- Linked new tasks to the logged-in user.
+- Dashboard now displays only the logged-in user's tasks.
+- Created reusable get_user_task() helper.
+- Prevented unauthorized task edit, toggle, and delete operations.
+
+## Engineering Decisions
+- Used current_user from Flask-Login.
+- Applied DRY by extracting ownership logic into a helper.
+- Used HTTP 403 Forbidden for unauthorized access.
+
+## Issues & Fixes
+- Database schema mismatch after adding user_id.
+- Recreated development database.
+- Fixed RecursionError caused by recursive helper implementation.
+
+## Git
+- Implemented secure multi-user task ownership.
+
+## Next
+- Professional navbar dropdown
+- User profile page
+- Flash messages
+- Settings page

@@ -22,6 +22,11 @@ class User(UserMixin, db.Model):
         db.String(255),
         nullable=False
     )
+    tasks = db.relationship(
+    "Task",
+    backref="owner",
+    lazy=True
+   )
 
     def __repr__(self):
         return f"<User {self.username}>"
