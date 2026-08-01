@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}
+Settings | StudentOS
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="mb-4">
+        <h1 class="fw-bold">Settings</h1>
+        <p class="text-muted">
+            Customize your StudentOS experience.
+        </p>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+
+            <h4>
+                <i class="bi bi-person me-2"></i>
+                Account
+            </h4>
+
+            <p class="text-muted">
+                Manage your account information and preferences.
+            </p>
+
+            <hr>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <p class="text-muted mb-1">Username</p>
+                    <p class="fw-semibold">
+                        {{ current_user.username }}
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <p class="text-muted mb-1">Email</p>
+                    <p class="fw-semibold">
+                        {{ current_user.email }}
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+
+            <h4>
+                <i class="bi bi-palette me-2"></i>
+                Appearance
+            </h4>
+
+            <p class="text-muted mb-0">
+                Theme and interface preferences will be available here.
+            </p>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,4 +1,12 @@
-from flask import Blueprint, render_template, request, redirect, url_for, abort
+from flask import (
+    Blueprint,
+    render_template,
+    request,
+    redirect,
+    url_for,
+    abort,
+    flash
+    )
 from flask_login import login_required, current_user
 
 from app import db
@@ -62,16 +70,22 @@ def add_task():
 
         title = request.form["title"].strip()
 
-        if title:
+        # Prevent empty task titles
+        if not title:
+            flash("Task title cannot be empty.", "warning")
+            return redirect(url_for("main.add_task"))
 
-            task = Task(
-                title=title,
-                completed=False,
-                user_id=current_user.id
-            )
+        # Create task for the currently logged-in user
+        task = Task(
+            title=title,
+            completed=False,
+            user_id=current_user.id
+        )
 
-            db.session.add(task)
-            db.session.commit()
+        db.session.add(task)
+        db.session.commit()
+
+        flash("Task created successfully.", "success")
 
         return redirect(url_for("main.dashboard"))
 
@@ -135,3 +149,13 @@ def academics():
 @login_required
 def cyberhub():
     return render_template("cyberhub.html")
+
+@main.route("/profile")
+@login_required
+def profile():
+    return render_template("profile.html")
+
+@main.route("/settings")
+@login_required
+def settings():
+    return render_template("settings.html")

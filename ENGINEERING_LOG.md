@@ -991,3 +991,81 @@ Implement secure one-to-many User–Task relationships and enforce task ownershi
 - User profile page
 - Flash messages
 - Settings page
+
+# Session 15
+
+## Goal
+Improve the StudentOS user experience by polishing the interface, adding account navigation, and implementing application-wide feedback messages.
+
+## Completed
+
+### UI Improvements
+- Improved global page background.
+- Added navbar shadow and navigation hover effects.
+- Improved dashboard card styling.
+- Added smoother card hover effects.
+- Improved buttons and task-list styling.
+- Improved general visual hierarchy.
+
+### User Navigation
+- Replaced separate username and Logout links with a Bootstrap account dropdown.
+- Added Profile, Settings, and Logout options.
+- Created a protected Profile page.
+- Created a protected Settings page.
+- Connected Profile and Settings to the account dropdown.
+
+### Flash Message System
+- Added global flash-message rendering to base.html.
+- Added dismissible Bootstrap alerts.
+- Added feedback for:
+  - Task creation
+  - Empty task titles
+  - Task completion
+  - Task undo
+  - Task editing
+  - Task deletion
+  - Registration
+  - Login
+  - Invalid login
+  - Logout
+
+### Authentication Improvements
+- Added basic registration validation.
+- Prevented duplicate usernames.
+- Prevented duplicate email addresses.
+- Normalized email input using strip() and lower().
+- Replaced plain-text login errors with proper flash messages.
+
+## Engineering Concepts Learned
+- Information architecture
+- Global reusable UI components
+- Separation of concerns
+- User feedback and flash messages
+- Input normalization
+- Application-level validation
+- Database uniqueness constraints
+- Incremental UI improvement
+
+## Testing
+Verified:
+- User registration
+- Duplicate username detection
+- Duplicate email detection
+- Successful login
+- Invalid login
+- Logout
+- Profile authentication
+- Settings authentication
+- Account dropdown
+- Task creation
+- Empty task validation
+- Task editing
+- Task completion/undo
+- Task deletion
+- Flash-message dismissal
+
+## Next
+- Improve Profile functionality.
+- Begin editable account information.
+- Continue incremental StudentOS UI improvements.
+- Consider improving task routes to use appropriate HTTP methods.
