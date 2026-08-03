@@ -1069,3 +1069,91 @@ Verified:
 - Begin editable account information.
 - Continue incremental StudentOS UI improvements.
 - Consider improving task routes to use appropriate HTTP methods.
+
+# Session 16
+
+## Goal
+Improve the Profile interface, correct task action HTTP methods, and implement secure profile editing.
+
+## Completed
+
+### UI Improvements
+- Improved Profile page presentation.
+- Added a dedicated profile avatar.
+- Added scoped `.profile-card` styling.
+- Added structured profile information panels.
+- Improved visual hierarchy without affecting unrelated cards.
+
+### HTTP Method Improvements
+- Changed task Complete/Undo from GET requests to POST requests.
+- Changed task Delete from GET to POST.
+- Converted Complete/Undo and Delete links into HTML forms.
+- Preserved Edit as a GET/POST workflow.
+- Preserved delete confirmation before form submission.
+
+### Task System Improvements
+- Maintained task ownership authorization through `get_user_task()`.
+- Added flash feedback for task completion.
+- Added flash feedback for task undo.
+- Preserved flash feedback for task creation, editing, and deletion.
+
+### Debugging
+- Encountered Flask endpoint collision:
+  `AssertionError: View function mapping is overwriting an existing endpoint function: main.toggle_task`
+- Identified duplicate `toggle_task()` route definitions.
+- Removed the duplicate route.
+- Cleaned and reorganized `main.py`.
+- Restored the Edit Task route while refactoring.
+
+### Editable Profile
+- Added `/profile/edit`.
+- Created `edit_profile.html`.
+- Added pre-filled username and email fields.
+- Added username editing.
+- Added email editing.
+- Normalized email input with `strip()` and `lower()`.
+- Prevented empty username/email submissions.
+- Prevented duplicate usernames.
+- Prevented duplicate email addresses.
+- Excluded the current user's own account from uniqueness checks.
+- Added successful profile-update feedback.
+- Updated navbar username automatically after profile changes.
+
+## Engineering Concepts Learned
+- HTTP request semantics.
+- Difference between GET and POST.
+- Why state-changing actions should not use GET.
+- Scoped CSS.
+- Route endpoint uniqueness in Flask.
+- Account data validation.
+- Database uniqueness checks.
+- Updating authenticated user data.
+- Separation between profile viewing and profile editing.
+
+## Testing
+Verified:
+- Profile UI.
+- Complete task.
+- Undo completed task.
+- Delete confirmation cancellation.
+- Task deletion.
+- Task editing.
+- Flash messages.
+- Normal profile update.
+- Saving unchanged profile information.
+- Duplicate username protection.
+- Duplicate email protection.
+
+All tests passed successfully.
+
+## Security Note
+Task-changing actions now use POST instead of GET.
+
+However, POST requests are not yet protected against CSRF attacks. CSRF protection should be implemented before considering these forms production-ready.
+
+## Next — Session 17
+- Implement CSRF protection.
+- Protect state-changing forms with CSRF tokens.
+- Implement secure Change Password functionality.
+- Verify the user's current password before allowing a password change.
+- Continue incremental UI improvements.
