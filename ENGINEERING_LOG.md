@@ -1157,3 +1157,140 @@ However, POST requests are not yet protected against CSRF attacks. CSRF protecti
 - Implement secure Change Password functionality.
 - Verify the user's current password before allowing a password change.
 - Continue incremental UI improvements.
+
+# Session 17
+
+## Goal
+Improve StudentOS security by implementing CSRF protection and secure password-changing functionality.
+
+## Completed
+
+### CSRF Protection
+- Installed Flask-WTF.
+- Added `CSRFProtect` to the Flask application factory.
+- Enabled application-wide CSRF protection.
+- Learned how CSRF tokens protect state-changing requests.
+- Verified that valid CSRF tokens allow legitimate requests.
+- Verified that missing CSRF tokens produce a 400 Bad Request.
+
+### CSRF-Protected Forms
+Added CSRF tokens to:
+- Login
+- Registration
+- Add Task
+- Edit Task
+- Complete / Undo Task
+- Delete Task
+- Edit Profile
+- Change Password
+- Logout
+
+### CSRF Testing
+Performed a negative CSRF test:
+- Removed the Login CSRF token temporarily.
+- Confirmed Flask rejected the POST request.
+- Restored the token.
+- Confirmed Login worked normally again.
+
+### Change Password
+Implemented `/settings/change-password`.
+
+The password-change flow now:
+1. Requires authentication.
+2. Verifies the user's current password.
+3. Requires a minimum 8-character new password.
+4. Confirms both new-password fields match.
+5. Prevents reuse of the current password.
+6. Hashes the new password before database storage.
+7. Provides appropriate flash feedback.
+8. Uses CSRF protection.
+
+### Password Testing
+Verified:
+- Incorrect current password is rejected.
+- Short new passwords are rejected.
+- Mismatching passwords are rejected.
+- Reusing the current password is rejected.
+- Valid password changes succeed.
+- Old password no longer works after changing it.
+- New password successfully authenticates the user.
+
+### Settings
+- Added a Security section to Settings.
+- Added a Change Password action.
+- Kept account, security, and appearance settings logically separated.
+
+### Login Form
+- Reviewed unexpected browser password autofill.
+- Confirmed StudentOS was not inserting password values into the HTML.
+- Added appropriate autocomplete attributes:
+  - `autocomplete="username"`
+  - `autocomplete="current-password"`
+- Confirmed password autofill was browser/password-manager behavior.
+
+### Logout Security
+- Changed Logout from GET to POST.
+- Replaced the Logout link with a POST form.
+- Added a CSRF token to Logout.
+- Preserved logout flash feedback.
+
+## Engineering Concepts Learned
+- Cross-Site Request Forgery (CSRF)
+- CSRF tokens
+- Positive and negative security testing
+- Application-wide Flask extensions
+- POST-based state-changing actions
+- Password hashing
+- Password verification
+- Password validation
+- Browser password-manager behavior
+- Secure logout design
+- Defense in depth
+
+## Security Architecture So Far
+
+Authentication
+    ↓
+Authorization / Ownership
+    ↓
+Correct HTTP Methods
+    ↓
+CSRF Protection
+    ↓
+Password Verification
+    ↓
+Password Hashing
+
+## Testing
+Verified:
+- Registration
+- Login
+- Invalid Login
+- Logout
+- Add Task
+- Edit Task
+- Complete Task
+- Undo Task
+- Delete Task
+- Edit Profile
+- Change Password
+- CSRF rejection
+- Protected-page authentication
+
+All tested functionality worked successfully.
+
+## Remaining Security Work
+- Move SECRET_KEY out of source code.
+- Introduce environment variables.
+- Prevent secrets from entering Git.
+- Review `.gitignore`.
+- Consider stronger password policy later.
+- Add custom CSRF error handling later.
+
+## Next — Session 18
+- Environment variables and secret management.
+- Secure Flask SECRET_KEY configuration.
+- Review `.gitignore`.
+- Verify secrets are excluded from Git.
+- Continue incremental UI improvements.
+

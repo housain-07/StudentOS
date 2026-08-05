@@ -13,6 +13,11 @@ from flask_login import (
     current_user
 )
 
+from werkzeug.security import (
+    check_password_hash,
+    generate_password_hash
+)
+
 from app import db
 from app.models.task import Task
 from app.models.user import User
@@ -303,3 +308,77 @@ def edit_profile():
         return redirect(url_for("main.profile"))
 
     return render_template("edit_profile.html")
+
+@main.route("/settings/change-password", methods=["GET", "POST"])
+@login_required
+def change_password():
+
+    if request.method == "POST":
+
+        current_password = request.form["current_password"]
+        new_password = request.form["new_password"]
+        confirm_password = request.form["confirm_password"]
+
+        # Verify current password
+        if not check_password_hash(
+            current_user.password,
+            current_password
+        ):
+            flash(
+                "Current password is incorrect.",
+                "danger"
+            )
+            return redirect(
+                url_for("main.change_password")
+            )
+
+        # Validate new password
+        if len(new_password) < 8:
+            flash(
+                "New password must be at least 8 characters long.",
+                "warning"
+            )
+            return redirect(
+                url_for("main.change_password")
+            )
+
+        # Confirm both new passwords match
+        if new_password != confirm_password:
+            flash(
+                "New passwords do not match.",
+                "warning"
+            )
+            return redirect(
+                url_for("main.change_password")
+            )
+
+        # Prevent reusing the current password
+        if check_password_hash(
+            current_user.password,
+            new_password
+        ):
+            flash(
+                "New password must be different from your current password.",
+                "warning"
+            )
+            return redirect(
+                url_for("main.change_password")
+            )
+
+        # Hash before storing
+        current_user.password = generate_password_hash(
+            new_password
+        )
+
+        db.session.commit()
+
+        flash(
+            "Password changed successfully.",
+            "success"
+        )
+
+        return redirect(
+            url_for("main.settings")
+        )
+
+    return render_template("change_password.html")

@@ -11,7 +11,7 @@ Add Task | StudentOS
     <h2 class="mb-4">Add a New Study Task</h2>
 
     <form method="POST">
-
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="mb-3">
             <label for="title" class="form-label">
                 Task Title
